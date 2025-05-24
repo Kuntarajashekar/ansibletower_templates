@@ -1,0 +1,17 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+  - name: create file if not exist
+    file:
+       path: "/root/roles/automation.json"
+       state: directory
+       recurse: yes
+       become: true
+  - name: get automation bundle
+    get_url:
+       url: https://roboshop-artifacts.s3.amazonaws.com/frontend-v3.zip
+       dest: "/root/roles"
+       owner: "raja"
+       remote_src: yes
+       
